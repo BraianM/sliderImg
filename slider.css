@@ -1,0 +1,19 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+#content-flex {
+	height: 600px;
+	display: flex;
+	justify-content: center;
+}
+#content-slider {
+	display: flex;
+	border: 5px solid;
+	/*overflow: hidden;*/
+	width: 530px;
+	height: 400px;
+	align-self: center;
+}
+
