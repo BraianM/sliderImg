@@ -8,15 +8,24 @@
 	display: flex;
 	justify-content: center;
 }
+
 #content-slider {
 	display: flex;
 	width: 800px;
 	height: 600px;
 	border: 8px solid;
-	/*overflow: hidden;*/
+	overflow: hidden;
 	align-self: center;
 }
 
-.fotos {
+#pick-1 {
+	position: relative;
+}
+
+#pick-2 {
+	position: relative;
+}
+
+#pick-3 {
 	position: relative;
 }
