@@ -4,16 +4,19 @@
 }
 
 #content-flex {
-	height: 600px;
+	height: 800px;
 	display: flex;
 	justify-content: center;
 }
 #content-slider {
 	display: flex;
-	border: 5px solid;
+	width: 800px;
+	height: 600px;
+	border: 8px solid;
 	/*overflow: hidden;*/
-	width: 530px;
-	height: 400px;
 	align-self: center;
 }
 
+.fotos {
+	position: relative;
+}

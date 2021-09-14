@@ -1,10 +1,7 @@
-const listIdImg = []
+const listImg = []
 
 window.onload = () => {
-	addElementArr();
-	removeImg();
-	updateSlider();
-	//printConsole();
+	animation(element);
 }
 
 // metodo run
@@ -15,35 +12,42 @@ window.onload = () => {
 // generar boton right
 // mostrat indicor de cada imagen que va pasando en forma de puntos.
 
-
-const addElementArr = () => {
-	let v = 1;
-	for(let i = 0; i < idContentSlider().childElementCount; i++) {
-		listIdImg.push(idImg(v));
-		v+=2;
-		//console.log(listIdImg[i]);
-	}
+const animation = (e) => {
+	let pos = 0;
+	let id = null;
+	id = setInterval(() => {
+		if (pos == 800) {
+			// limpiar intervalo
+			clearInterval(id);
+			// mecanismo de rotación de elementos.
+		} else {
+			pos++
+			e(1).style.right = pos + 'px';
+			e(3).style.right = pos + 'px';
+			e(5).style.right = pos + 'px';
+		}
+	}, 1);
 }
 
-// obtenemos la referencia de los elemento Img por su id.
-const idImg = (index) => (idContentSlider().childNodes[index]);
+
+
+// obtenemos la referencia de los elemento Img 
+const element = (index) => idContentSlider().childNodes[index];
 
 // obtenemos la referencia de content-slider por su id
-const idContentSlider = () => (document.getElementById('content-slider')); 
+const idContentSlider = () => document.getElementById('content-slider'); 
 
 
 // actualizamos el div content-slider para reflejar cambios en nuestro arreglo.
-const updateSlider = () => {
+const updateArrDom = () => {
 	let lista = '';
-	for (let i = 0; i < listIdImg.length ; i++) {
-		lista += listIdImg[i].outerHTML;
+	for (let i = 0; i < listImg.length ; i++) {
+		lista += listImg[i].outerHTML;
 	}
-	console.log(lista);
 	idContentSlider().innerHTML = lista;
 }
 
-const removeImg = () => (listIdImg.pop());
-//--------------------------------------------------------------------------------------
 
-const printConsole = () => {
-}
+// tambien hay que empezar a ver como vamos a hacer la animacion.
+
+//--------------------------------------------------------------------------------------
