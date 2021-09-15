@@ -29,7 +29,27 @@ h1 {
 
 .fotos {
 	position: relative;
+	z-index: 1;
 }
 
+#btLeft {
+	left: 30%;
+}
 
+#btRight {
+	right: 30%;
+}
+
+.button {
+	cursor: pointer;
+	z-index: 2;
+	position: absolute;
+	top: 48.5%;
+	font: normal 8em Arial, Helvetica, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(0,0,0,0.0);
+	border: none;
+}
 

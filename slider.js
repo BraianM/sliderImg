@@ -17,7 +17,7 @@ const animation = (arr) => {
 	let pos = 0;
 	let id = null;
 	id = setInterval(() => {
-		if (pos == 800) {
+		if (pos === 800) {
 			clearInterval(id);
 			elemRotar = arr.shift();
 			arr.push(elemRotar);
