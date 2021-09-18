@@ -1,8 +1,14 @@
-
 window.onload = () => {
-	idBtRight.addEventListener('click', () => haciaDelante(listImg, updateArrDom), false);
+	addElements(listImg);
 	idBtLeft.addEventListener('click', () => haciaAtras(listImg, updateArrDom), false);
-	run();
+	setInterval(() => {
+		let x = animation(listImg);
+		if (x === 800) {
+		} else {
+			idBtLeft.removeEventListener('click', haciaAtras);
+		}
+		idBtRight.addEventListener('click', () => haciaDelante(listImg, updateArrDom), false);
+	}, 8000);
 }
 
 
@@ -11,10 +17,7 @@ const idContentSlider = document.getElementById('content-slider'); // div conten
 const idBtRight = document.getElementById('btRight');
 const idBtLeft = document.getElementById('btLeft');
 
-const run = () => {
-	addElements(listImg)
-	setInterval(() => animation(listImg), 8000);
-}
+	//setInterval(() => animation(listImg), 8000);
 
 const animation = (arr) => {
 	let elemRotar = null;
@@ -34,6 +37,7 @@ const animation = (arr) => {
 			for (let j = 0; j < arr.length; j++) {
 				document.getElementById(arr[j].id).style.right = pos + 'px';
 			}
+			return pos;
 		}
 	}, 1);
 }
