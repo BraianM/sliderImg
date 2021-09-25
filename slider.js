@@ -58,7 +58,7 @@ window.onload = () => {
 	let stop = run()
 	btLeft.addEventListener('click', () => {
 		clearInterval(stop)
-		haciaAtras(idContentSlider, moveElement, run)
+		haciaAtras(idContentSlider, moveElement)
 		stop = run()
 	})
 
