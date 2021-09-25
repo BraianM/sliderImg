@@ -10,50 +10,62 @@ const moveElement = (listElements, pos) => {
 	})
 }
 
-const haciaAdelante = (idContentSlider, listElements) => {
-	listElements.forEach((element) => {
-		element.style.position = 'static';
-	})
-	idContentSlider.appendChild(idContentSlider.firstElementChild)
+const haciaAdelante = (idContentSlider, listElements, callback) => {
+	let i = 0;
+	btLeft.disabled = true;
+	btRight.disabled = true;
+	id = setInterval(() => {
+		i++;
+		if (i === 800) {
+			listElements.forEach((element) => {
+				element.style.position = 'static';
+			})
+			idContentSlider.appendChild(idContentSlider.firstElementChild)
+			clearInterval(id)
+			btLeft.disabled = false;
+			btRight.disabled = false;
+		} else {
+			callback(listElements, i)
+		}
+	}, 0, i)
 }
 
-const haciaAtras = (idContentSlider) => {
+const haciaAtras = (idContentSlider, callback) => {
+	let i = 800;
+	btLeft.disabled = true;
+	btRight.disabled = true;
 	idContentSlider.insertBefore(idContentSlider.lastElementChild, idContentSlider.firstElementChild)
+	id = setInterval(() => {
+		i--;
+		if (i === 0) {
+			callback(listElements, i)
+			clearInterval(id)
+			btLeft.disabled = false;
+			btRight.disabled = false;
+		} else {
+			callback(listElements, i)
+		}
+	}, 0, i)
 }
 
+const run = () => {
+	let id = setInterval(() => {
+		haciaAdelante(idContentSlider, listElements, moveElement)
+	}, 15000)
+	return id;
+}
 window.onload = () => {
+	let stop = run()
 	btLeft.addEventListener('click', () => {
-		haciaAtras(idContentSlider)
-		btLeft.disabled = true;
-		btRight.disabled = true;
-		let a = 800;
-		id = setInterval(() => {
-			a--;
-			if (a === 0) {
-				clearInterval(id);
-				btLeft.disabled = false;
-				btRight.disabled = false;
-			} else {
-				moveElement(listElements, a);
-			}
-		}, 1, a)
+		clearInterval(stop)
+		haciaAtras(idContentSlider, moveElement, run)
+		stop = run()
 	})
-	
+
 	btRight.addEventListener('click', () => {
-		btRight.disabled = true;
-		btLeft.disabled = true;
-		let a = 0;
-		id = setInterval(() => {
-			a++;
-			if (a == 800) {
-				haciaAdelante(idContentSlider, listElements)
-				clearInterval(id);
-				btRight.disabled = false;
-				btLeft.disabled = false;
-			} else {
-				moveElement(listElements, a);
-			}
-		}, 1, a)
-	}, true)
+		clearInterval(stop)
+		haciaAdelante(idContentSlider, listElements, moveElement)
+		stop = run()
+	})
 }
 
