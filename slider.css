@@ -12,44 +12,27 @@ h1 {
 
 #content-flex {
 	margin: auto;
-	height: 750px;
+	width: 990px;
+	height: 700px;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
 #content-slider {
 	display: flex;
-	width: 800px;
-	height: 600px;
 	border: 8px solid;
 	overflow: hidden;
+	width: 800px;
+	height: 600px;
+	align-self: center;
 }
 
-.fotos {
-	position: relative;
-	z-index: 1;
+.boton {
+	align-self: center;
 }
 
-#btLeft {
-	left: 30%;
-}
-
-#btRight {
-	right: 30%;
-}
-
-.button {
-	cursor: pointer;
-	z-index: 2;
-	position: absolute;
-	top: 35.5%;
-	font: normal 8em Arial, Helvetica, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	color: rgba(255, 255, 255, 0.6);
-	background-color: rgba(0,0,0,0.0);
-	border: none;
+img {
+	/*position: static;*/
 }
 

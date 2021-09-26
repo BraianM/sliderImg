@@ -1,107 +1,71 @@
-window.onload = () => {
-	addElements(listImg);
-	idBtLeft.addEventListener('click', () => haciaAtras(listImg, updateArrDom), false);
-	setInterval(() => {
-		let x = animation(listImg);
-		if (x === 800) {
-		} else {
-			idBtLeft.removeEventListener('click', haciaAtras);
-		}
-		idBtRight.addEventListener('click', () => haciaDelante(listImg, updateArrDom), false);
-	}, 8000);
+const btLeft = document.getElementById('btLeft')
+const btRight = document.getElementById('btRight')
+const idContentSlider = document.getElementById('content-slider')
+const listElements = document.querySelectorAll('#content-slider img')
+
+const moveElement = (listElements, pos) => {
+	listElements.forEach((element) => {
+		element.style.position = 'relative';
+		element.style.right = pos + 'px';
+	})
 }
 
-
-const listImg = []; // array.
-const idContentSlider = document.getElementById('content-slider'); // div content-slider.
-const idBtRight = document.getElementById('btRight');
-const idBtLeft = document.getElementById('btLeft');
-
-	//setInterval(() => animation(listImg), 8000);
-
-const animation = (arr) => {
-	let elemRotar = null;
-	let pos = 0;
-	let id = null;
+const haciaAdelante = (idContentSlider, listElements, callback) => {
+	let i = 0;
+	btLeft.disabled = true;
+	btRight.disabled = true;
 	id = setInterval(() => {
-		if (pos === 800) {
-			clearInterval(id);
-			elemRotar = arr.shift();
-			arr.push(elemRotar);
-			for (let a = 0; a < arr.length; a++) {
-				document.getElementById(arr[a].id).style.position = 'static';
-			}
-			updateArrDom(listImg)// se actualiza el dom para reflejar los cambios de mi arreglo.
+		i++;
+		if (i === 800) {
+			listElements.forEach((element) => {
+				element.style.position = 'static';
+			})
+			idContentSlider.appendChild(idContentSlider.firstElementChild)
+			clearInterval(id)
+			btLeft.disabled = false;
+			btRight.disabled = false;
 		} else {
-			pos++;
-			for (let j = 0; j < arr.length; j++) {
-				document.getElementById(arr[j].id).style.right = pos + 'px';
-			}
-			return pos;
+			callback(listElements, i)
 		}
-	}, 1);
+	}, 0, i)
 }
 
-const haciaAtras = (arr, updateDom) => {
-	let id2 = null;
-	let pos = 800;
-	let elemRotar = null;
-	elemRotar = arr.pop();
-	arr.unshift(elemRotar);
-	for (let a = 0; a < arr.length; a++) {
-		document.getElementById(arr[a].id).style.position = 'static';
-	}
-	updateDom(arr);
-	id2 = setInterval(() => {
-		if (pos == 0) {
-			clearInterval(id2);
+const haciaAtras = (idContentSlider, callback) => {
+	let i = 800;
+	btLeft.disabled = true;
+	btRight.disabled = true;
+	idContentSlider.insertBefore(idContentSlider.lastElementChild, idContentSlider.firstElementChild)
+	id = setInterval(() => {
+		i--;
+		if (i === 0) {
+			callback(listElements, i)
+			clearInterval(id)
+			btLeft.disabled = false;
+			btRight.disabled = false;
 		} else {
-			pos--;
-			for (let j = 0; j < arr.length; j++) {
-				document.getElementById(arr[j].id).style.right = pos + 'px';
-			}
+			callback(listElements, i)
 		}
-	}, 1);
+	}, 0, i)
 }
 
-const haciaDelante = (arr, updateDom) => {
-	let id2 = null;
-	let pos = 0;
-	let elemRotar = null;
-	id2 = setInterval(() => {
-		if (pos == 800) {
-			clearInterval(id2);
-				elemRotar = arr.shift();
-				arr.push(elemRotar);
-			for (let a = 0; a < arr.length; a++) {
-				document.getElementById(arr[a].id).style.position = 'static';
-				updateDom(arr);
-			}
-		} else {
-			pos ++;
-			for (let j = 0; j < arr.length; j++) {
-				document.getElementById(arr[j].id).style.right = pos + 'px';
-			}
-		}
-	}, 1)
+const run = () => {
+	let id = setInterval(() => {
+		haciaAdelante(idContentSlider, listElements, moveElement)
+	}, 15000)
+	return id;
+}
+window.onload = () => {
+	let stop = run()
+	btLeft.addEventListener('click', () => {
+		clearInterval(stop)
+		haciaAtras(idContentSlider, moveElement)
+		stop = run()
+	})
+
+	btRight.addEventListener('click', () => {
+		clearInterval(stop)
+		haciaAdelante(idContentSlider, listElements, moveElement)
+		stop = run()
+	})
 }
 
-const addElements = (arr) => {
-	let sum = 1;
-	for (let a = 0; a < idContentSlider.childElementCount; a++) {
-		arr.push(idContentSlider.childNodes[sum])
-		sum+=2;
-	}
-}
-
-const updateArrDom = (arr) => {
-	let lista = ''; 
-	for (let i = 0; i < listImg.length; i++) {
-		document.getElementById(arr[i].id).style.position = 'relative';
-		document.getElementById(arr[i].id).style.right = '0px';
-		lista += listImg[i].outerHTML;
-	}
-	idContentSlider.innerHTML = lista;
-}
-
-//--------------------------------------------------------------------------------------
